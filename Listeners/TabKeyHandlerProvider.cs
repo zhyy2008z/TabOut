@@ -89,7 +89,7 @@ namespace InsertGuid
                 {
                     var se = CompletionBroker.GetSessions(View).ToArray();
 
-                    if (!CompletionBroker.IsCompletionActive(View) && !isIntelliCodeActive(View.VisualElement, Color.FromRgb(0xdc, 0xdc, 0xdc))) //代码自动完成不能在活动状态
+                    if (!CompletionBroker.IsCompletionActive(View) && !isIntelliCodeActive(View.VisualElement)) //代码自动完成不能在活动状态
                     {
                         var line = View.Caret.Position.BufferPosition.GetContainingLine();
                         var linePosition = View.Caret.Position.BufferPosition.Position - line.Start.Position;
@@ -146,16 +146,19 @@ namespace InsertGuid
             return NextCommandTarget.Exec(ref pguidCmdGroup, nCmdID, nCmdexecopt, pvaIn, pvaOut);
         }
 
-        private static bool isIntelliCodeActive(DependencyObject reference, Color color)
+        private static bool isIntelliCodeActive(DependencyObject reference)
         {
             int count = VisualTreeHelper.GetChildrenCount(reference);
             for (int i = 0; i < count; i++)
             {
                 var child = VisualTreeHelper.GetChild(reference, i);
-                if (child is TextBlock textBlock && textBlock.Foreground is SolidColorBrush colorBrush && colorBrush.Color == color)
-                    return true;
+                if (child is TextBlock textBlock)
+                {
+                    if (!string.IsNullOrEmpty(textBlock.Text) && textBlock.IsEnabled && textBlock.Opacity == .5 && textBlock.GetType().Name == nameof(TextBlock) && textBlock.Parent?.GetType().FullName == "Microsoft.VisualStudio.Text.Editor.Implementation.AdornmentLayer")
+                        return true;
+                }
                 else
-                    if (isIntelliCodeActive(child, color)) return true;
+                    if (isIntelliCodeActive(child)) return true;
             }
             return false;
         }
