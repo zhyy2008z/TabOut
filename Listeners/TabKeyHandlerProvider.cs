@@ -157,7 +157,7 @@ namespace InsertGuid
                     if (!string.IsNullOrEmpty(textBlock.Text) && textBlock.IsEnabled && textBlock.Opacity == .5 && textBlock.GetType().Name == nameof(TextBlock) && textBlock.Parent?.GetType().FullName is "Microsoft.VisualStudio.Text.Editor.Implementation.AdornmentLayer" or "Microsoft.VisualStudio.Text.Editor.Implementation.TextAndAdornmentSequencing.IntraTextAdornment+AdornmentWrapper")
                         return true;
                 }
-                else if (child.GetType().FullName.Contains("SuggestionSession.GeometryAdornment"))
+                else if (child.GetType().FullName.Contains("SuggestionSession+GeometryAdornment"))
                     return true;
                 else
                     if (isIntelliCodeActive(child)) return true;
