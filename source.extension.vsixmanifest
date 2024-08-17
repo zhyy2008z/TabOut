@@ -4,7 +4,7 @@
                  xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
         <Identity Id="TabOut.97c51f42-4a79-4529-a3d5-43a249d0e2b8"
-                  Version="2.1"
+                  Version="2.1.1"
                   Language="en-US"
                   Publisher="穿越中的逍遥" />
         <DisplayName>TabOut</DisplayName>

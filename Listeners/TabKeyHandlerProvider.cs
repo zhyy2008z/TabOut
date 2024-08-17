@@ -154,7 +154,7 @@ namespace InsertGuid
                 var child = VisualTreeHelper.GetChild(reference, i);
                 if (child is TextBlock textBlock)
                 {
-                    if (!string.IsNullOrEmpty(textBlock.Text) && textBlock.IsEnabled && textBlock.Opacity == .5 && textBlock.GetType().Name == nameof(TextBlock) && textBlock.Parent?.GetType().FullName == "Microsoft.VisualStudio.Text.Editor.Implementation.AdornmentLayer")
+                    if (!string.IsNullOrEmpty(textBlock.Text) && textBlock.IsEnabled && textBlock.Opacity == .5 && textBlock.GetType().Name == nameof(TextBlock) && textBlock.Parent?.GetType().FullName is "Microsoft.VisualStudio.Text.Editor.Implementation.AdornmentLayer" or "Microsoft.VisualStudio.Text.Editor.Implementation.TextAndAdornmentSequencing.IntraTextAdornment+AdornmentWrapper")
                         return true;
                 }
                 else
