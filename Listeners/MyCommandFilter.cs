@@ -98,7 +98,6 @@ namespace TabOut.Listeners
 
                                         if (find)
                                             moveCount = count;
-
                                     }
                                     else //空格匹配结尾模式
                                     {
