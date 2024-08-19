@@ -87,7 +87,7 @@ namespace TabOut.Listeners
                                         while (linePosition + count < lineContent.Length)
                                         {
                                             var curChar = lineContent[linePosition + count];
-                                            if (Array.FindIndex(Brackets, b => b.Open == curChar || b.Close == curChar) >= 0)
+                                            if (curChar == b.Close)
                                             {
                                                 find = true;
                                                 break;
@@ -99,22 +99,19 @@ namespace TabOut.Listeners
                                         if (find)
                                             moveCount = count;
                                     }
-                                    else //空格匹配结尾模式
+
+                                    if (moveCount == 0) //空格匹配结尾模式
                                     {
                                         var caretChar = nextChar;
-                                        int mc = 1;
-
-                                        while (caretChar == ' ') //光标位置是空格，我们要往后继续找
+                                        var count = 0;
+                                        while (caretChar == ' ' && linePosition + count < lineContent.Length) //光标位置是空格，我们要往后继续找
                                         {
-                                            mc++;
-                                            linePosition++;
-                                            if (linePosition >= lineContent.Length)
-                                                break;
-                                            caretChar = lineContent[linePosition];
+                                            caretChar = lineContent[linePosition + count];
+                                            count++;
                                         }
 
                                         if (Array.FindIndex(Brackets, b => b.Open == caretChar || b.Close == caretChar) >= 0) //现在光标位置是目标字符，可以做标记了
-                                            moveCount = mc;
+                                            moveCount = count;
                                     }
                                 }
                             }
@@ -192,7 +189,7 @@ namespace TabOut.Listeners
                 if (child is Button button)
                 {
                     if (button.Parent is StackPanel && button.Name == "PrimaryKeyButton" && button.Content is TextBlock && (
-                        i + 2 < count && VisualTreeHelper.GetChild(reference, i + 2) is TextBlock textBlock && textBlock.Name == "CommandDescription" 
+                        i + 2 < count && VisualTreeHelper.GetChild(reference, i + 2) is TextBlock textBlock && textBlock.Name == "CommandDescription"
                         || i + 1 < count && VisualTreeHelper.GetChild(reference, i + 1) is TextBlock textBlock2 && textBlock2.Name == "CommandDescription"))
                         return true;
                 }
