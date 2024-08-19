@@ -191,7 +191,9 @@ namespace TabOut.Listeners
                 var child = VisualTreeHelper.GetChild(reference, i);
                 if (child is Button button)
                 {
-                    if (button.Content is TextBlock textBlock && textBlock.Text == "Tab")
+                    if (button.Parent is StackPanel && button.Name == "PrimaryKeyButton" && button.Content is TextBlock && (
+                        i + 2 < count && VisualTreeHelper.GetChild(reference, i + 2) is TextBlock textBlock && textBlock.Name == "CommandDescription" 
+                        || i + 1 < count && VisualTreeHelper.GetChild(reference, i + 1) is TextBlock textBlock2 && textBlock2.Name == "CommandDescription"))
                         return true;
                 }
                 else
