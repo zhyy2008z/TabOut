@@ -4,11 +4,12 @@
                  xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
         <Identity Id="TabOut.97c51f42-4a79-4529-a3d5-43a249d0e2b8"
-                  Version="2.4"
-                  Language="en-US"
+                  Version="2.4.1"
+                  Language="zh-CN"
                   Publisher="穿越中的逍遥" />
         <DisplayName>TabOut</DisplayName>
         <Description xml:space="preserve">仿 VS Code TabOut 插件</Description>
+        <License>LICENSE.txt</License>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Icon.png</PreviewImage>
     </Metadata>
