@@ -138,7 +138,7 @@ namespace TabOut.Listeners
         }
 
         /// <summary>
-        /// 第一部分，通过可视树判断ai智能补全是否正在激活中
+        /// 第一部分，通过可视树判断ai智能补全及 代码片段扩展 是否正在激活中
         /// </summary>
         private static bool isIntelliCodeActive1(DependencyObject reference)
         {
@@ -152,6 +152,8 @@ namespace TabOut.Listeners
                         return true;
                 }
                 else if (child.GetType().FullName.Contains("SuggestionSession+GeometryAdornment"))
+                    return true;
+                else if (child.GetType().FullName == "Microsoft.VisualStudio.Editor.Implementation.TextMarkerImage")
                     return true;
                 else
                     if (isIntelliCodeActive1(child)) return true;
