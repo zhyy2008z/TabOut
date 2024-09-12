@@ -59,7 +59,7 @@ namespace TabOut.Listeners
             {
                 if (Dte.ActiveDocument is Document document) //对所有文件生效
                 {
-                    if (!CompletionBroker.IsCompletionActive(View) && !isIntelliCodeActive(View.VisualElement)) //代码自动完成不能在活动状态
+                    if (!CompletionBroker.IsCompletionActive(View) && !isIntelliCodeActive(View.VisualElement, document.Language.ToLower())) //代码自动完成不能在活动状态
                     {
                         var line = View.Caret.Position.BufferPosition.GetContainingLine();
                         var linePosition = View.Caret.Position.BufferPosition.Position - line.Start.Position;
@@ -132,9 +132,12 @@ namespace TabOut.Listeners
 
         record struct MatchedBrackets(char Open, char Close);
 
-        static bool isIntelliCodeActive(DependencyObject reference)
+        static bool isIntelliCodeActive(DependencyObject reference, string language)
         {
-            return (isIntelliCodeActive1(reference) || isIntelliCodeActive2());
+            if (language is "csharp") //目前仅c#支持高阶的智能代码提示
+                return (isIntelliCodeActive1(reference) || isIntelliCodeActive2());
+            else
+                return false;
         }
 
         /// <summary>
